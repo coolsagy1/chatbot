@@ -31,12 +31,11 @@ app.post('/webhook/', function(req,res){
   for(let i=0; i<messaging_events.length; i++){
     let event = messaging_events[i]
     let sender = event.sender.id
-    let name = event.sender.name
     if(event.message && event.message.text){
       let text = event.message.text
       console.log("text:"+text)
       console.log("Text echo: "+text.substring(0,100))
-      sendText(sender, "Thanks "+name+", for your message. We'll take care to your request soon.")
+      sendText(sender, "Thanks for your message. We'll take care to your request soon.")
     }
   }
   res.sendStatus(200)
