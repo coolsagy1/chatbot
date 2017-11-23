@@ -6,7 +6,7 @@ const request = require('request')
 
 const app = express()
 
-var token = "EAAdHY46Eaq0BAIWQekFlZCfd32p041DieEsRWIOZBZCIck4KtZALbd1bahHD4rDGu4H6QVvwMrP1J5Mgvuf05LRzREYoWZBrAsgNqZC8cTUqzFaFqlkQZBRxKpkh3YA3hsUNaKzQtJ5UByksg9Gq6ZAUzHgVLIFVUhbfuQXnBXJQRgZDZD"
+let token = "EAAdHY46Eaq0BAIWQekFlZCfd32p041DieEsRWIOZBZCIck4KtZALbd1bahHD4rDGu4H6QVvwMrP1J5Mgvuf05LRzREYoWZBrAsgNqZC8cTUqzFaFqlkQZBRxKpkh3YA3hsUNaKzQtJ5UByksg9Gq6ZAUzHgVLIFVUhbfuQXnBXJQRgZDZD"
 app.set('port', (process.env.PORT || 5000))
 
 //To process the data
@@ -27,7 +27,7 @@ app.get('/webhook/',function(req, res){
 })
 
 app.post('/webhook/', function(req,res){
-  let messaging_events = req.body.entry[0].messaging_events
+  let messaging_events = req.body.entry[0].messaging
   for(let i=0; i<messaging_events.length; i++){
     let event = messaging_events[i]
     let sender = event.sender.id
@@ -45,7 +45,7 @@ function sendText(sender, text){
     qs: {access_token: token},
     method: "POST",
     json: {
-      receipt: {id: sender},
+      recipient: {id: sender},
       message: messageData
     }
   }, function(error, response, body){
