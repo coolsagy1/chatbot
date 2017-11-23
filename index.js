@@ -20,10 +20,10 @@ app.get('/', function(req, res){
 
 //FB
 app.get('/webhook/',function(req, res){
-  if(req.query['hub.verify_token']=="sagy"){
+  if(req.query['hub.verify_token'] === "sagy"){
     res.send(req.query['hub.challenge'])
   }
-  res.send('Wrong Token!')
+  res.send("Wrong Token!")
 })
 
 app.post('/webhook/', function(req,res){
@@ -38,6 +38,7 @@ app.post('/webhook/', function(req,res){
       sendText(sender, "Text echo: "+text.substring(0,100))
     }
   }
+  res.sendStatus(200)
 })
 
 function sendText(sender, text){
@@ -48,13 +49,13 @@ function sendText(sender, text){
     method: "POST",
     json: {
       recipient: {id: sender},
-      message: messageData
+      message: messageData,
     }
   }, function(error, response, body){
     if(error){
       console.log("sending error!")
     } else if(response.body.error){
-      console.log("response.body.error")
+      console.log("response body error")
     }
 
   })
